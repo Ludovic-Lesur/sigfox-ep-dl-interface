@@ -6,6 +6,13 @@ sudo apt-get upgrade
 sudo apt-get autoremove
 ```
 
+## Local testing
+
+```bash
+cd sigfox-ep-dl-interface
+php -S localhost:8000
+```
+
 ## LightTPD
 
 ```bash

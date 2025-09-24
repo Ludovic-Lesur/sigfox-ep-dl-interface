@@ -21,27 +21,6 @@
 	if (isset($_POST['operation_code']) != 0) {
 	    $operation_code=$_POST['operation_code'];
 	}
-	// Start form.
-	echo "<form method='POST' action=''>";
-	// EP-ID field.
-	echo "<br><label for='id_sigfox_ep_id'>EP ID </label>";
-	echo "<input id='id_sigfox_ep_id' type='text' name='sigfox_ep_id' pattern='[a-fA-F\d]{8,8}'";
-	if ((isset($_POST['sigfox_ep_id']) != 0) && (isset($_POST['record_action']) == 0)) {
-	    if (strlen($_POST['sigfox_ep_id']) > 0) {
-	        echo " value=";
-	        echo $_POST['sigfox_ep_id'];
-	    }
-	}
-	echo " required size='10' />";
-	echo "<br>";
-	// Permanent attribute check box.
-	echo "<br><label for='horns'>Permanent</label>";
-	echo "<input type='checkbox' name='permanent_flag'";
-	if ((isset($_POST['permanent_flag']) != 0) && (isset($_POST['record_action']) == 0)) {
-	    echo " checked";
-	}
-	echo "/>";
-	echo "<br>";
 	// Operation codes select form.
 	echo "<br><label for='OperationCode'>Operation code </label>";
 	echo "<select name='operation_code' onchange='this.form.submit()'>";
@@ -278,6 +257,4 @@
         echo "<br>";
         echo "<input type='submit' name='record_action' value='Record action'/>";
     }
-    // End form.
-    echo "</form>";
 ?>
