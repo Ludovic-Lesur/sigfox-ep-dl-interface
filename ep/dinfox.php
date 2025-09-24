@@ -1,33 +1,33 @@
 <?php
-	// Global variables.
+    // Global variables.
     global $dl_payload;
     // Local variables.
-	$OPERATION_CODE_NAME = array(
-	    "NOP",
-	    "Single full read",
-	    "Single full write",
-	    "Single masked write",
-	    "Temporary full write",
-	    "Temporary masked write",
-	    "Successive full write",
-	    "Successive masked write",
-	    "Dual full write",
-	    "Triple full write",
-	    "Dual node write"
-	);
-	$operation_code = 0;
-	$operation_code_supported = true;
-	// Read operation code.
-	if (isset($_POST['operation_code']) != 0) {
-	    $operation_code=$_POST['operation_code'];
-	}
-	// Operation codes select form.
-	echo "<br><label for='OperationCode'>Operation code </label>";
-	echo "<select name='operation_code' onchange='this.form.submit()'>";
-	for ($idx=0 ; $idx<count($OPERATION_CODE_NAME) ; $idx++) {
-	    // Generate form line.
+    $OPERATION_CODE_NAME = array (
+        "NOP",
+        "Single full read",
+        "Single full write",
+        "Single masked write",
+        "Temporary full write",
+        "Temporary masked write",
+        "Successive full write",
+        "Successive masked write",
+        "Dual full write",
+        "Triple full write",
+        "Dual node write"
+    );
+    $operation_code = 0;
+    $operation_code_supported = true;
+    // Read operation code.
+    if (isset($_POST['operation_code']) != 0) {
+        $operation_code = $_POST['operation_code'];
+    }
+    // Operation codes select form.
+    echo "<br><label for='OperationCode'>Operation code </label>";
+    echo "<select name='operation_code' onchange='this.form.submit()'>";
+    for ($idx = 0; $idx < count($OPERATION_CODE_NAME); $idx++) {
+        // Generate form line.
         $selected = ($idx == $operation_code) ? 'selected' : '';
-	    echo "<option value=$idx $selected> $OPERATION_CODE_NAME[$idx]</option>";
+        echo "<option value=$idx $selected> $OPERATION_CODE_NAME[$idx]</option>";
     }
     echo "</select>";
     echo "<br>";
@@ -48,7 +48,7 @@
         echo "<br>";
         // Build DL payload.
         $dl_payload[1] = intval($_POST['node_addr'], 16) & 0xFF;
-        $dl_payload[2] = intval($_POST['reg_addr'],  16) & 0xFF;
+        $dl_payload[2] = intval($_POST['reg_addr'], 16) & 0xFF;
         break;
     case 2:
     case 4:
@@ -64,11 +64,11 @@
         echo "<br>";
         // Build DL payload.
         $dl_payload[1] = intval($_POST['node_addr'], 16) & 0xFF;
-        $dl_payload[2] = intval($_POST['reg_addr'],  16) & 0xFF;
+        $dl_payload[2] = intval($_POST['reg_addr'], 16) & 0xFF;
         $dl_payload[3] = (intval($_POST['reg_value'], 16) >> 24) & 0xFF;
         $dl_payload[4] = (intval($_POST['reg_value'], 16) >> 16) & 0xFF;
-        $dl_payload[5] = (intval($_POST['reg_value'], 16) >> 8)  & 0xFF;
-        $dl_payload[6] = (intval($_POST['reg_value'], 16) >> 0)  & 0xFF;
+        $dl_payload[5] = (intval($_POST['reg_value'], 16) >> 8) & 0xFF;
+        $dl_payload[6] = (intval($_POST['reg_value'], 16) >> 0) & 0xFF;
         // Additional duration field for temporary operation.
         if ($operation_code == 4) {
             echo "<br><label for='id_duration'>Duration </label>";
@@ -94,9 +94,9 @@
         echo "<br>";
         // Build DL payload.
         $dl_payload[1] = intval($_POST['node_addr'], 16) & 0xFF;
-        $dl_payload[2] = intval($_POST['reg_addr'],  16) & 0xFF;
-        $dl_payload[3] = (intval($_POST['reg_mask'], 16)  >> 8) & 0xFF;
-        $dl_payload[4] = (intval($_POST['reg_mask'], 16)  >> 0) & 0xFF;
+        $dl_payload[2] = intval($_POST['reg_addr'], 16) & 0xFF;
+        $dl_payload[3] = (intval($_POST['reg_mask'], 16) >> 8) & 0xFF;
+        $dl_payload[4] = (intval($_POST['reg_mask'], 16) >> 0) & 0xFF;
         $dl_payload[5] = (intval($_POST['reg_value'], 16) >> 8) & 0xFF;
         $dl_payload[6] = (intval($_POST['reg_value'], 16) >> 0) & 0xFF;
         // Additional duration field for temporary operation.
@@ -126,7 +126,7 @@
         echo "<br>";
         // Build DL payload.
         $dl_payload[1] = intval($_POST['node_addr'], 16) & 0xFF;
-        $dl_payload[2] = intval($_POST['reg_addr'],  16) & 0xFF;
+        $dl_payload[2] = intval($_POST['reg_addr'], 16) & 0xFF;
         $dl_payload[3] = (intval($_POST['reg_value_1'], 16) >> 8) & 0xFF;
         $dl_payload[4] = (intval($_POST['reg_value_1'], 16) >> 0) & 0xFF;
         $dl_payload[5] = (intval($_POST['reg_value_2'], 16) >> 8) & 0xFF;
@@ -154,12 +154,12 @@
         echo "<input id='id_duration' type='text' name='duration' pattern='[a-fA-F\d]{2,2}' required size='10' />";
         echo "<br>";
         // Build DL payload.
-        $dl_payload[1] = intval($_POST['node_addr'],   16) & 0xFF;
-        $dl_payload[2] = intval($_POST['reg_addr'],    16) & 0xFF;
-        $dl_payload[3] = intval($_POST['reg_mask'],    16) & 0xFF;
+        $dl_payload[1] = intval($_POST['node_addr'], 16) & 0xFF;
+        $dl_payload[2] = intval($_POST['reg_addr'], 16) & 0xFF;
+        $dl_payload[3] = intval($_POST['reg_mask'], 16) & 0xFF;
         $dl_payload[4] = intval($_POST['reg_value_1'], 16) & 0xFF;
         $dl_payload[5] = intval($_POST['reg_value_2'], 16) & 0xFF;
-        $dl_payload[6] = intval($_POST['duration'],    16) & 0xFF;
+        $dl_payload[6] = intval($_POST['duration'], 16) & 0xFF;
         break;
     case 8:
         // Dual full write.
@@ -179,7 +179,7 @@
         echo "<input id='id_reg_2_value' type='text' name='reg_2_value' pattern='[a-fA-F\d]{2,4}' required size='10' />";
         echo "<br>";
         // Build DL payload.
-        $dl_payload[1] = intval($_POST['node_addr'],  16) & 0xFF;
+        $dl_payload[1] = intval($_POST['node_addr'], 16) & 0xFF;
         $dl_payload[2] = intval($_POST['reg_1_addr'], 16) & 0xFF;
         $dl_payload[3] = (intval($_POST['reg_1_value'], 16) >> 8) & 0xFF;
         $dl_payload[4] = (intval($_POST['reg_1_value'], 16) >> 0) & 0xFF;
@@ -211,12 +211,12 @@
         echo "<input id='id_reg_3_value' type='text' name='reg_3_value' pattern='[a-fA-F\d]{2,2}' required size='10' />";
         echo "<br>";
         // Build DL payload.
-        $dl_payload[1] = intval($_POST['node_addr'],   16) & 0xFF;
-        $dl_payload[2] = intval($_POST['reg_1_addr'],  16) & 0xFF;
+        $dl_payload[1] = intval($_POST['node_addr'], 16) & 0xFF;
+        $dl_payload[2] = intval($_POST['reg_1_addr'], 16) & 0xFF;
         $dl_payload[3] = intval($_POST['reg_1_value'], 16) & 0xFF;
-        $dl_payload[4] = intval($_POST['reg_2_addr'],  16) & 0xFF;
+        $dl_payload[4] = intval($_POST['reg_2_addr'], 16) & 0xFF;
         $dl_payload[5] = intval($_POST['reg_2_value'], 16) & 0xFF;
-        $dl_payload[6] = intval($_POST['reg_3_addr'],  16) & 0xFF;
+        $dl_payload[6] = intval($_POST['reg_3_addr'], 16) & 0xFF;
         $dl_payload[7] = intval($_POST['reg_3_value'], 16) & 0xFF;
         break;
     case 10:
@@ -241,18 +241,18 @@
         echo "<br>";
         // Build DL payload.
         $dl_payload[1] = intval($_POST['node_1_addr'], 16) & 0xFF;
-        $dl_payload[2] = intval($_POST['reg_1_addr'],  16) & 0xFF;
+        $dl_payload[2] = intval($_POST['reg_1_addr'], 16) & 0xFF;
         $dl_payload[3] = intval($_POST['reg_1_value'], 16) & 0xFF;
         $dl_payload[4] = intval($_POST['node_2_addr'], 16) & 0xFF;
-        $dl_payload[5] = intval($_POST['reg_2_addr'],  16) & 0xFF;
+        $dl_payload[5] = intval($_POST['reg_2_addr'], 16) & 0xFF;
         $dl_payload[6] = intval($_POST['reg_2_value'], 16) & 0xFF;
         break;
     default:
         $operation_code_supported = false;
         echo "<br>Unknown operation code.";
-	    break;
+        break;
     }
-	// Record button.
+    // Record button.
     if ($operation_code_supported == true) {
         echo "<br>";
         echo "<input type='submit' name='record_action' value='Record action'/>";

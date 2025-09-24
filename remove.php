@@ -8,7 +8,7 @@
         // Open file.
         if (file_exists($DOWNLINK_MESSAGES_FILE) == 0) {
             echo "ERROR: Downlink message file not found.";
-            exit;
+            exit();
         }
         // Read current content.
         $file = file_get_contents($DOWNLINK_MESSAGES_FILE);
