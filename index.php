@@ -69,6 +69,9 @@
 			echo "<br>";
 			// Display payload builder for the selected device type.
 			switch ($device_type) {
+		    case 0:
+		        include 'ep/meteofox.php';
+		        break;
 		    case 3:
 		        include 'ep/dinfox.php';
 		        break;
