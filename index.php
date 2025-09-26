@@ -30,7 +30,7 @@
             $git_version = str_replace(array("\r", "\n"), '', shell_exec('git describe --long --always --dirty'));
             list($major_version, $minor_version, $commit_index, $commit_id_dirty_flag) = sscanf($git_version, "sw%d.%d-%d-%s");
             echo "Version: sw$major_version.$minor_version.$commit_index";
-            if (str_contains($commit_id_dirty_flag, 'dirty') == TRUE) {
+            if (strpos($commit_id_dirty_flag, 'dirty') !== false) {
                 echo ".dev";
             }
         ?>
