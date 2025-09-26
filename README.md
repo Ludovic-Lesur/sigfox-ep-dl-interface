@@ -33,4 +33,7 @@ sudo lighty-enable-mod fastcgi
 sudo lighty-enable-mod fastcgi-php
 
 sudo service lighttpd force-reload
+
+sudo git config --global --add safe.directory '*'
+sudo git config --system --add safe.directory '*'
 ```
