@@ -4,10 +4,20 @@
     // Local variables.
     $OPERATION_CODE_NAME = array (
         "NOP",
-        "Reset"
+        "Reset",
+        "Set weather data period"
+    );
+    $WEATHER_DATA_PERIOD_NAME = array (
+        "60 minutes",
+        "30 minutes",
+        "20 minutes",
+        "15 minutes",
+        "12 minutes",
+        "10 minutes",
     );
     $operation_code = 0;
     $operation_code_supported = true;
+    $weather_data_period = 0;
     // Read operation code.
     if (isset($_POST['operation_code']) != 0) {
         $operation_code = $_POST['operation_code'];
@@ -31,6 +41,23 @@
         break;
     case 1:
         // Reset.
+        break;
+    case 2:
+        // Set weather data period.
+        if (isset($_POST['weather_data_period']) != 0) {
+            $weather_data_period = $_POST['weather_data_period'];
+        }
+        echo "<br><label for='WeatherDataPeriod'>Weather data period </label>";
+        echo "<select name='weather_data_period' onchange='this.form.submit()'>";
+        for ($idx = 0; $idx < count($WEATHER_DATA_PERIOD_NAME); $idx++) {
+            // Generate form line.
+            $selected = ($idx == $weather_data_period) ? 'selected' : '';
+            echo "<option value=$idx $selected> $WEATHER_DATA_PERIOD_NAME[$idx]</option>";
+        }
+        echo "</select>";
+        echo "<br>";
+        // Build DL payload.
+        $dl_payload[1] = $weather_data_period;
         break;
     default:
         $operation_code_supported = false;
