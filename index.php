@@ -83,6 +83,9 @@
                     case 3:
                         include 'ep/dinfox.php';
                         break;
+                    case 4:
+                        include 'ep/homefox.php';
+                        break;
                     default:
                         echo "<br>No downlink message defined for device type $DEVICE_TYPE_LIST[$device_type].<br>";
                         break;
