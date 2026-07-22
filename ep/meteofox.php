@@ -5,7 +5,8 @@
     $OPERATION_CODE_NAME = array (
         "NOP",
         "Reset",
-        "Set weather data period"
+        "Set weather data period",
+        "Set date and time"
     );
     $WEATHER_DATA_PERIOD_NAME = array (
         "60 minutes",
@@ -58,6 +59,10 @@
         echo "<br>";
         // Build DL payload.
         $dl_payload[1] = $weather_data_period;
+        break;
+    case 3:
+        // Set date and time.
+        // Timestamp will be filled by the server when the downlink request will occur.
         break;
     default:
         $operation_code_supported = false;
