@@ -1,4 +1,6 @@
-## System update
+## Installation
+
+### System update
 
 ```bash
 sudo apt-get update
@@ -6,14 +8,15 @@ sudo apt-get upgrade
 sudo apt-get autoremove
 ```
 
-## Local testing
+### Interface
 
 ```bash
-cd sigfox-ep-dl-interface
-php -S localhost:8000
+mkdir git
+cd git
+git clone https://github.com/Ludovic-Lesur/sigfox-ep-dl-interface.git
 ```
 
-## LightTPD
+### LightTPD
 
 ```bash
 sudo apt-get install lighttpd
@@ -22,7 +25,7 @@ sudo apt-get install lighttpd
 Edit the `/etc/lighttpd/lighttpd.conf` configuration file:
 
 ```bash
-server.document-root    = "/home/ludo/git/sigfox-ep-dl-interface/"
+server.document-root    = "<sigfox-ep-dl-interface path>"
 server.port             = <lighttpd_port>
 ```
 
@@ -36,4 +39,11 @@ sudo service lighttpd force-reload
 
 sudo git config --global --add safe.directory '*'
 sudo git config --system --add safe.directory '*'
+```
+
+## Local testing
+
+```bash
+cd git/sigfox-ep-dl-interface
+php -S localhost:8000
 ```

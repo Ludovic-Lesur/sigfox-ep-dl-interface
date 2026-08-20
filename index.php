@@ -12,7 +12,13 @@
     </head>
     <?php
         // Global variables.
-        $DOWNLINK_MESSAGES_FILE = '../sigfox-ep-server/sigfox_downlink_messages.json';
+        $DL_MESSAGES_FILE = __DIR__ . '/sigfox_ep_dl_messages.json';
+        $DL_MESSAGES_LIST_JSON_KEY = 'dl_messages_list';
+        $DL_MESSAGES_LIST_JSON_KEY_RECORD_TIME = 'record_time';
+        $DL_MESSAGES_LIST_JSON_KEY_SIGFOX_EP_ID = 'sigfox_ep_id';
+        $DL_MESSAGES_LIST_JSON_KEY_DL_PAYLOAD = 'dl_payload';
+        $DL_MESSAGES_LIST_JSON_KEY_PERMANENT = 'permanent';
+        // Init device types list.
         $DEVICE_TYPE_LIST = array (
             "MeteoFox",
             "ATXFox",
@@ -22,6 +28,11 @@
         );
         $device_type = 0;
         $dl_payload = array(0, 0, 0, 0, 0, 0, 0, 0);
+        // Open or create downlink messages file.
+        if (file_exists($DL_MESSAGES_FILE) == 0) {
+            $empty_json = [$DL_MESSAGES_LIST_JSON_KEY => []];
+            file_put_contents($DL_MESSAGES_FILE, json_encode($empty_json, JSON_PRETTY_PRINT));
+        }
     ?>
     <body>
         <h1>Sigfox End Point Downlink Interface</h1>
