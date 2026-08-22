@@ -14,6 +14,8 @@ sudo apt-get autoremove
 mkdir git
 cd git
 git clone https://github.com/Ludovic-Lesur/sigfox-ep-dl-interface.git
+sudo chown <user>:www-data sigfox-ep-dl-interface/
+sudo chmod g+w sigfox-ep-dl-interface/
 ```
 
 ### LightTPD
