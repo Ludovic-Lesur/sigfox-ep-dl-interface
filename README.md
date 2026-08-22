@@ -14,8 +14,6 @@ sudo apt-get autoremove
 mkdir git
 cd git
 git clone https://github.com/Ludovic-Lesur/sigfox-ep-dl-interface.git
-sudo chown <user>:www-data sigfox-ep-dl-interface/
-sudo chmod g+w sigfox-ep-dl-interface/
 ```
 
 ### LightTPD
@@ -41,6 +39,20 @@ sudo service lighttpd force-reload
 
 sudo git config --global --add safe.directory '*'
 sudo git config --system --add safe.directory '*'
+```
+
+### Shared file permissions
+
+Launch the interface once to create the `sigfox_ep_dl_messages.json` file.
+
+```bash
+cd git
+sudo chown <user>:www-data sigfox-ep-dl-interface/
+sudo chmod g+w sigfox-ep-dl-interface/
+sudo usermod -aG www-data <user>
+cd sigfox-ep-dl-interface
+sudo chmod g+w sigfox_ep_dl_messages.json
+newgrp www-data
 ```
 
 ## Local testing
