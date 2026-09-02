@@ -91,6 +91,9 @@
                     case 0:
                         include 'ep/meteofox.php';
                         break;
+                    case 2:
+                        include 'ep/trackfox.php';
+                        break;
                     case 3:
                         include 'ep/dinfox.php';
                         break;
