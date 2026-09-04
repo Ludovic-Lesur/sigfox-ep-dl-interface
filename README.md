@@ -25,8 +25,28 @@ sudo apt-get install lighttpd
 Edit the `/etc/lighttpd/lighttpd.conf` configuration file:
 
 ```bash
+server.modules += ( "mod_auth" )
+
+$HTTP["url"] =~ "^/" {
+    auth.backend = "htpasswd"
+    auth.backend.htpasswd.userfile = "/etc/lighttpd/htpasswd"
+
+    auth.require = (
+        "/" => (
+            "method"  => "basic",
+            "realm"   => "Sigfox End-Point Downlink Interface",
+            "require" => "valid-user"
+        )
+    )
+}
+
 server.document-root    = "<sigfox-ep-dl-interface path>"
 server.port             = <lighttpd_port>
+```
+
+```bash
+sudo apt-get install apache2-utils
+sudo htpasswd -c /etc/lighttpd/htpasswd <user>
 ```
 
 ```bash
