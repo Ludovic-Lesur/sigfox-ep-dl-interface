@@ -6,7 +6,8 @@
         "NOP",
         "Reset",
         "Set weather data period",
-        "Set date and time"
+        "Set date and time",
+        "Set lux and UV index calibration"
     );
     $WEATHER_DATA_PERIOD_NAME = array (
         "60 minutes",
@@ -63,6 +64,33 @@
     case 3:
         // Set date and time.
         // Timestamp will be filled by the server when the downlink request will occur.
+        break;
+    case 4:
+        // Set lux and UV index calibration.
+        echo "<br><label for='id_lux_gain_numerator'>Lux gain numerator </label>";
+        echo "<input id='id_lux_gain_numerator' type='number' name='lux_gain_numerator' min='1' max='4095' required />";
+        echo "<br>";
+        echo "<br><label for='id_lux_gain_denominator'>Lux gain denominator </label>";
+        echo "<input id='id_lux_gain_denominator' type='number' name='lux_gain_denominator' min='1' max='4095' required />";
+        echo "<br>";
+        echo "<br><label for='id_uv_index_gain_numerator'>UV index gain numerator </label>";
+        echo "<input id='id_uv_index_gain_numerator' type='number' name='uv_index_gain_numerator' min='1' max='4095' required />";
+        echo "<br>";
+        echo "<br><label for='id_uv_index_gain_denominator'>UV index gain denominator </label>";
+        echo "<input id='id_uv_index_gain_denominator' type='number' name='uv_index_gain_denominator' min='1' max='4095' required />";
+        echo "<br>";
+        // Extract fields.
+        $lux_gain_numerator = intval($_POST['lux_gain_numerator'], 10);
+        $lux_gain_denominator = intval($_POST['lux_gain_denominator'], 10);
+        $uv_index_gain_numerator = intval($_POST['uv_index_gain_numerator'], 10);
+        $uv_index_gain_denominator = intval($_POST['uv_index_gain_denominator'], 10);
+        // Build DL payload.
+        $dl_payload[1] = ($lux_gain_numerator >> 4) & 0xFF;
+        $dl_payload[2] = (((($lux_gain_numerator >> 0) & 0x0F) << 4) | (($lux_gain_denominator >> 8) & 0x0F));
+        $dl_payload[3] = (($lux_gain_denominator >> 0) & 0xFF);
+        $dl_payload[4] = ($uv_index_gain_numerator >> 4) & 0xFF;
+        $dl_payload[5] = (((($uv_index_gain_numerator >> 0) & 0x0F) << 4) | (($uv_index_gain_denominator >> 8) & 0x0F));
+        $dl_payload[6] = (($uv_index_gain_denominator >> 0) & 0xFF);
         break;
     default:
         $operation_code_supported = false;
