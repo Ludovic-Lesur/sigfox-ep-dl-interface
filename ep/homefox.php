@@ -58,7 +58,7 @@
         echo "<input id='id_air_quality_period_minutes' type='number' name='air_quality_period_minutes' min='10' max='10080' required />";
         echo "<br>";
         echo "<br><label for='id_accelerometer_blanking_time_seconds'>Accelerometer blanking time (seconds) </label>";
-        echo "<input id='id_accelerometer_blanking_time_seconds' type='number' name='accelerometer_blanking_time_seconds' min='60' max='17280' required />";
+        echo "<input id='id_accelerometer_blanking_time_seconds' type='number' name='accelerometer_blanking_time_seconds' min='60' max='21600' required />";
         echo "<br>";
         // Build DL payload.
         $dl_payload[1] = (intval($_POST['monitoring_period_minutes'], 10) >> 8) & 0xFF;
