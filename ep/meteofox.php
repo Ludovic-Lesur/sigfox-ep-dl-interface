@@ -7,7 +7,8 @@
         "Reset",
         "Set weather data period",
         "Set date and time",
-        "Set lux and UV index calibration"
+        "Set lux and UV index calibration",
+        "Start lux and UV index calibration",
     );
     $WEATHER_DATA_PERIOD_NAME = array (
         "60 minutes",
@@ -73,24 +74,32 @@
         echo "<br><label for='id_lux_gain_denominator'>Lux gain denominator </label>";
         echo "<input id='id_lux_gain_denominator' type='number' name='lux_gain_denominator' min='1' max='4095' required />";
         echo "<br>";
-        echo "<br><label for='id_uv_index_gain_numerator'>UV index gain numerator </label>";
-        echo "<input id='id_uv_index_gain_numerator' type='number' name='uv_index_gain_numerator' min='1' max='4095' required />";
+        echo "<br><label for='id_uvi_gain_numerator'>UV index gain numerator </label>";
+        echo "<input id='id_uvi_gain_numerator' type='number' name='uvi_gain_numerator' min='1' max='4095' required />";
         echo "<br>";
-        echo "<br><label for='id_uv_index_gain_denominator'>UV index gain denominator </label>";
-        echo "<input id='id_uv_index_gain_denominator' type='number' name='uv_index_gain_denominator' min='1' max='4095' required />";
+        echo "<br><label for='id_uvi_gain_denominator'>UV index gain denominator </label>";
+        echo "<input id='id_uvi_gain_denominator' type='number' name='uvi_gain_denominator' min='1' max='4095' required />";
         echo "<br>";
         // Extract fields.
         $lux_gain_numerator = intval($_POST['lux_gain_numerator'], 10);
         $lux_gain_denominator = intval($_POST['lux_gain_denominator'], 10);
-        $uv_index_gain_numerator = intval($_POST['uv_index_gain_numerator'], 10);
-        $uv_index_gain_denominator = intval($_POST['uv_index_gain_denominator'], 10);
+        $uvi_gain_numerator = intval($_POST['uvi_gain_numerator'], 10);
+        $uvi_gain_denominator = intval($_POST['uvi_gain_denominator'], 10);
         // Build DL payload.
         $dl_payload[1] = ($lux_gain_numerator >> 4) & 0xFF;
         $dl_payload[2] = (((($lux_gain_numerator >> 0) & 0x0F) << 4) | (($lux_gain_denominator >> 8) & 0x0F));
         $dl_payload[3] = (($lux_gain_denominator >> 0) & 0xFF);
-        $dl_payload[4] = ($uv_index_gain_numerator >> 4) & 0xFF;
-        $dl_payload[5] = (((($uv_index_gain_numerator >> 0) & 0x0F) << 4) | (($uv_index_gain_denominator >> 8) & 0x0F));
-        $dl_payload[6] = (($uv_index_gain_denominator >> 0) & 0xFF);
+        $dl_payload[4] = ($uvi_gain_numerator >> 4) & 0xFF;
+        $dl_payload[5] = (((($uvi_gain_numerator >> 0) & 0x0F) << 4) | (($uvi_gain_denominator >> 8) & 0x0F));
+        $dl_payload[6] = (($uvi_gain_denominator >> 0) & 0xFF);
+        break;
+    case 5:
+        // Start lux and UV index calibration.
+        echo "<br><label for='id_calibration_time_hours'>Calibration time (hours) </label>";
+        echo "<input id='id_calibration_time_hours' type='number' name='calibration_time_hours' min='1' max='168' required />";
+        echo "<br>";
+        // Build DL payload.
+        $dl_payload[1] = intval($_POST['calibration_time_hours'], 10);
         break;
     default:
         $operation_code_supported = false;
